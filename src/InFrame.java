@@ -10,7 +10,7 @@ public class InFrame extends JFrame{
         JFrame holdFrame = new JFrame();
         holdFrame.setTitle("title");
         holdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        holdFrame.setLayout(null);
+        //holdFrame.setLayout(null);
         holdFrame.setResizable(true);
 
         holdFrame.setVisible(true);
