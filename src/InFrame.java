@@ -1,17 +1,14 @@
 import javax.swing.*;
-import java.io.*;
-import java.net.InetAddress;
-import java.util.Calendar;
-import java.util.Scanner;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 
 import static java.lang.System.out;
 
 public class InFrame extends JFrame implements ActionListener {
+
+    String OVER ="false";
 
     static String sDefect;
     static String sPart;
@@ -57,60 +54,70 @@ public class InFrame extends JFrame implements ActionListener {
     JPanel Batchpanel;
 
     JButton Submit;
+    JButton Print;
+    JButton Clear;
+
+    JTextField Printfield;
+    JLabel Printlabel;
+    JPanel Printpanel;
+   static  String subFirst = "";
+    static String subSecond = "";
 
 
-    public void charactercounter() {
-    String Comment;
+    public void Charactercounter(String Comment) {
+
     int i = 0;
     int S = 0;
     int wc = 0;
-    String Act[];
+    String Act[] = new String[5];
     final int OUT = 0;
     final int IN = 1;
     int state = OUT;
-    String first:
+    String first;
+    subFirst = "";
+    subSecond = "";
 
-
-        Comment = sComment;
-        Act[0] = Comment;
+    Act[0] = Comment;
         //System.out.println(Act[0]);
         while (i < Act[0].length()) {
             if (Act[0].charAt(i) == ' ' || Act[0].charAt(i) == '\n' || Act[0].charAt(i) == '\t')
-
-            else if (state == OUT) {
+                state = OUT;
+            else
+                if (state == OUT) {
                 state = IN;
                 ++wc;
-                // System.out.println("wc = " + (wc));
-                //System.out.println("i = " + (i));
-                // System.out.println("S = " + (S));
+// System.out.println("wc = " + (wc));
+//System.out.println("i = " + (i));
+ // System.out.println("S = " + (S));
                 if (wc == 7) S = i;
             }
-            // Move to next character
-//                                System.out.println(i);
+// Move to next character
+//System.out.println(i);
             ++i;
         }
-        if (i > 75) System.out.println("You have entered " + "'" + (i) + "'"
-                + " Characters\nPlease try again.");
-        while((i >75)||(i ==0));
-        if(Act[1]==null)
-    Act[1]=(" ");
-    first =Act[0];
-//                                    System.out.println(first);
+        if (i > 75)
+            OVER ="true";
+
+
+         if(Act[1]==null)
+            Act[1]=(" ");
+        first =Act[0];
+//System.out.println(first);
 // Splits the text lines
-                                                                                if(S>0)
-
-
-        subFirst = first.substring(0, S);
-        subSecond = first.substring(S);
+        if(S>0) {
+            subFirst = first.substring(0, S);
+            subSecond = first.substring(S);
+        }
 //                                        System.out.println(subFirst);
 //                                        System.out.println(subSecond);
 //De                            System.out.println(Comment);
 
-                                                                                else subFirst =first;
+        else subFirst = first;
 //                                    System.out.println(subFirst);
 //                                    System.out.println(subSecond);
 
-}
+
+    }
 
 
     public void textfields(){
@@ -126,7 +133,6 @@ public class InFrame extends JFrame implements ActionListener {
         Quantity.setPreferredSize(new Dimension(100,25));
         Inspector = new JTextField();
         Inspector.setPreferredSize(new Dimension(100,25));
-
         Batch = new JTextField();
         Batch.setPreferredSize(new Dimension(100,25));
 
@@ -171,20 +177,24 @@ public class InFrame extends JFrame implements ActionListener {
         Batchpanel = new JPanel();
         Batchpanel.setPreferredSize(new Dimension(125,50));
         //Batchpanel.setBackground(Color.ORANGE);
-        Batchlabel = new JLabel("Date");
+        Batchlabel = new JLabel("Batch");
 
 
         Inspectorpanel = new JPanel();
         Inspectorpanel.setPreferredSize(new Dimension(125,50));
         Inspectorlabel = new JLabel("Inspector");
 
+        Printpanel = new JPanel();
+        //Printpanel.setPreferredSize(new Dimension(50,50));
+
+        //Printlabel.setHorizontalTextPosition(Part.LEFT);
 
     }
 
 
     public InFrame(){
 
-
+        Printlabel = new JLabel(String.valueOf(Pnumber));
 
         JFrame holdFrame = new JFrame();
         holdFrame.setTitle("title");
@@ -193,7 +203,7 @@ public class InFrame extends JFrame implements ActionListener {
         holdFrame.setResizable(true);
 
 
-        holdFrame.setSize(400,300);
+        holdFrame.setSize(400,400);
         ImageIcon image = new ImageIcon("TsIcon.png");
         holdFrame.setIconImage(image.getImage());
         holdFrame.getContentPane().setBackground(Color.green);
@@ -203,31 +213,27 @@ public class InFrame extends JFrame implements ActionListener {
 
         Border blackline = BorderFactory.createLineBorder(Color.black);
         Rightpanel = new JPanel();
-        Submit = new JButton("submit");
+        Submit = new JButton("Submit");
         Submit.addActionListener(this);
-
+        Print= new JButton("Print");
+        Print.addActionListener(this);
+        Clear= new JButton("Clear");
+        Clear.addActionListener(this);
         Defectpanel.add(Defectlabel);
         Defectpanel.add(Defect);
-
         Partpanel.add(Partlabel);
         Partpanel.add(Part);
-
         Datepanel.add(Datelabel);
         Datepanel.add(Date);
-
         Requiredpanel.add(Requiredlabel);
         Requiredpanel.add(Requiredaction);
-
         Quantitypanel.add(Quantitylabel);
         Quantitypanel.add(Quantity);
-
         Inspectorpanel.add(Inspectorlabel);
         Inspectorpanel.add(Inspector);
-
         Batchpanel.add(Batchlabel);
         Batchpanel.add(Batch);
-
-
+        Leftpanel.setLayout(new FlowLayout());
         Leftpanel.setBorder(blackline);
         //Rightpanel.setLayout(new FlowLayout());
 
@@ -239,32 +245,31 @@ public class InFrame extends JFrame implements ActionListener {
         Leftpanel.add(Quantitypanel);
         Leftpanel.add(Inspectorpanel);
 
-        Rightpanel.add(Submit);
-
-
         Rightpanel.setPreferredSize(new Dimension(125,50));
-
+        Rightpanel.setLayout(new BorderLayout());
+        Rightpanel.add(Submit);
         holdFrame.add(Leftpanel);
-        holdFrame.add(Rightpanel, BorderLayout.SOUTH);
 
+        holdFrame.add(Rightpanel, BorderLayout.SOUTH);
         //holdFrame.add(Submit);
         Rightpanel.setSize(200,600);
         Leftpanel.setSize(200,600);
         holdFrame.setLocationRelativeTo(null);
         //holdFrame.pack();
         holdFrame.setVisible(true);
-
-
-
+        Rightpanel.add(Clear,BorderLayout.EAST);
     }
 
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        repaint();
 
 
-        if(e.getSource()==Submit){
+        if (e.getSource() == Submit) {
+            Printlabel.setText(" ");
+            Pnumber= 0;
             sDefect = (Defect.getText());
             sPart = (Part.getText());
             sDate = (Date.getText());
@@ -273,16 +278,91 @@ public class InFrame extends JFrame implements ActionListener {
             sInspector = (Inspector.getText());
             sBatch = (Batch.getText());
 
+            try {
+                Charactercounter(sComment);
+                if (OVER.equals("true")) {
+                    JOptionPane.showMessageDialog(new JFrame(), "You goofed up");
+                    OVER = "";
+                    Requiredaction.setBackground(Color.YELLOW);
+                    Requiredaction.setText("");
 
-            Printqty = JOptionPane.showInputDialog("Please enter quantity to print");
+                    return;
+                } else {
+                    Printqty = JOptionPane.showInputDialog("Please enter quantity to print");
+                    Requiredaction.setBackground(Color.WHITE);
+                    Pnumber = Integer.parseInt(Printqty);
+                    String copyW = "";
+                    if(Pnumber > 1)
+                        copyW = "copies";
+                    else copyW = "copy";
+                    Printlabel = new JLabel("Click print to confirm you would like to print " + Pnumber + " " +copyW);
+                    Printpanel.add(Printlabel);
+
+
+                    out.println(sDefect);
+                    out.println(sPart);
+                    out.println(sDate);
+                    out.println(sComment);
+                    out.println(sQuantity);
+                    out.println(sInspector);
+
+
+                    Rightpanel.add(Clear,BorderLayout.EAST);
+                    Rightpanel.add(Print,BorderLayout.CENTER);
+
+
+                    Rightpanel.add(Printpanel,BorderLayout.NORTH);
+                    Rightpanel.remove(Submit);
+                    Rightpanel.add(Submit,BorderLayout.WEST);
+                    Rightpanel.repaint();
+                    Rightpanel.revalidate();
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(new JFrame(), "You must only enter numbers.");
+
+            }
+        }
+        if (e.getSource() == Print){
             try {
                 Pnumber = Integer.parseInt(Printqty);
                 Tag.main();
+                JOptionPane.showMessageDialog(new JFrame(), "Print Job Sent!");
+                Rightpanel.remove(Print);
+                Rightpanel.remove(Printpanel);
+                Rightpanel.remove(Submit);
+                Rightpanel.repaint();
+                Rightpanel.revalidate();
+                Rightpanel.add(Submit);
+                Rightpanel.repaint();
+                Rightpanel.revalidate();
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(new JFrame(),"You must only enter numbers.");
+                JOptionPane.showMessageDialog(new JFrame(), "You must only enter numbers.");
 
             }
+    }
+        if (e.getSource() == Clear){
 
+            Printlabel.setText(" ");
+
+            Defect.setText("");
+            Part.setText("");
+            Date.setText("");
+            Requiredaction.setText("");
+            Quantity.setText("");
+            Inspector.setText("");
+            Batch.setText("");
+
+            Rightpanel.remove(Clear);
+            Rightpanel.remove(Print);
+            Rightpanel.remove(Printpanel);
+            Rightpanel.remove(Submit);
+            Rightpanel.repaint();
+            Rightpanel.revalidate();
+            Rightpanel.add(Submit);
+            Rightpanel.add(Clear,BorderLayout.EAST);
+            Rightpanel.repaint();
+            Rightpanel.revalidate();
+        }
 
 
             out.println(sDefect);
@@ -291,9 +371,8 @@ public class InFrame extends JFrame implements ActionListener {
             out.println(sComment);
             out.println(sQuantity);
             out.println(sInspector);
-        }
 
+        out.println("P number = "+ Pnumber);
     }
 
-
-}
+    }
