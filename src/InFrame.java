@@ -63,13 +63,17 @@ public class InFrame extends JFrame implements ActionListener {
    static  String subFirst = "";
     static String subSecond = "";
 
+    static JMenuBar Menubar;
+    static JMenu Helpmenu;
+    static JMenuItem help, Contactsupport, m3;
+
 
     public void Charactercounter(String Comment) {
 
     int i = 0;
     int S = 0;
     int wc = 0;
-    String Act[] = new String[5];
+    String[] Act = new String[5];
     final int OUT = 0;
     final int IN = 1;
     int state = OUT;
@@ -86,39 +90,66 @@ public class InFrame extends JFrame implements ActionListener {
                 if (state == OUT) {
                 state = IN;
                 ++wc;
-// System.out.println("wc = " + (wc));
-//System.out.println("i = " + (i));
- // System.out.println("S = " + (S));
+                // System.out.println("wc = " + (wc));
+                //System.out.println("i = " + (i));
+                    // System.out.println("S = " + (S));
                 if (wc == 7) S = i;
             }
-// Move to next character
-//System.out.println(i);
+                // Move to next character
+                //System.out.println(i);
             ++i;
         }
         if (i > 75)
             OVER ="true";
-
-
-         if(Act[1]==null)
+        if(Act[1]==null)
             Act[1]=(" ");
         first =Act[0];
-//System.out.println(first);
-// Splits the text lines
+        //System.out.println(first);
+        // Splits the text lines
         if(S>0) {
             subFirst = first.substring(0, S);
             subSecond = first.substring(S);
         }
-//                                        System.out.println(subFirst);
-//                                        System.out.println(subSecond);
-//De                            System.out.println(Comment);
-
+        //System.out.println(subFirst);
+        //System.out.println(subSecond);
+        //System.out.println(Comment);
         else subFirst = first;
-//                                    System.out.println(subFirst);
-//                                    System.out.println(subSecond);
-
-
+        //System.out.println(subFirst);
+        //System.out.println(subSecond);
     }
+public void Menu(){
+    // create a menubar
+    Menubar = new JMenuBar();
 
+    // create a menu
+    Helpmenu = new JMenu("Help");
+
+    // create menuitems
+    help = new JMenuItem(new AbstractAction("Help") {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(new JFrame(), """
+                    Press Submit after entering the desired Data for the listed fields. Any field can be left blank.
+                    After clicking Submit enter the quantity to print. 
+                    This must be a number and can not include any special characters or letters.
+                     
+                    """);
+
+        }
+    });
+    Contactsupport = new JMenuItem("Contact Support");
+    //m3 = new JMenuItem("MenuItem3");
+
+    Helpmenu.add(help);
+    Helpmenu.add(Contactsupport);
+    //x.add(m3);
+
+    Menubar.add(Helpmenu);
+
+    Helpmenu.addActionListener(this);
+
+
+}
 
     public void textfields(){
         Defect = new JTextField();
@@ -191,22 +222,29 @@ public class InFrame extends JFrame implements ActionListener {
 
     }
 
+    public void Rightpaneladds(){
 
+
+
+    }
     public InFrame(){
+        Menu();
 
         Printlabel = new JLabel(String.valueOf(Pnumber));
 
         JFrame holdFrame = new JFrame();
-        holdFrame.setTitle("title");
+        holdFrame.setTitle("TRMD HOLD TAG PRINTER 2.0.0");
         holdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         holdFrame.setLayout(new BorderLayout());
         holdFrame.setResizable(true);
+        holdFrame.setJMenuBar(Menubar);
 
 
         holdFrame.setSize(400,400);
         ImageIcon image = new ImageIcon("TsIcon.png");
         holdFrame.setIconImage(image.getImage());
         holdFrame.getContentPane().setBackground(Color.green);
+
 
         textfields();
 
@@ -233,22 +271,23 @@ public class InFrame extends JFrame implements ActionListener {
         Inspectorpanel.add(Inspector);
         Batchpanel.add(Batchlabel);
         Batchpanel.add(Batch);
+
         Leftpanel.setLayout(new FlowLayout());
         Leftpanel.setBorder(blackline);
         //Rightpanel.setLayout(new FlowLayout());
-
-        Leftpanel.add(Batchpanel);
-       Leftpanel.add(Defectpanel);
-        Leftpanel.add(Partpanel);
-        Leftpanel.add(Datepanel);
+        Leftpanel.add(Defectpanel);
         Leftpanel.add(Requiredpanel);
+        Leftpanel.add(Datepanel);
         Leftpanel.add(Quantitypanel);
+        Leftpanel.add(Batchpanel);
+        Leftpanel.add(Partpanel);
         Leftpanel.add(Inspectorpanel);
 
         Rightpanel.setPreferredSize(new Dimension(125,50));
         Rightpanel.setLayout(new BorderLayout());
         Rightpanel.add(Submit);
-        holdFrame.add(Leftpanel);
+
+        holdFrame.add(Leftpanel,BorderLayout.CENTER);
 
         holdFrame.add(Rightpanel, BorderLayout.SOUTH);
         //holdFrame.add(Submit);
@@ -264,7 +303,12 @@ public class InFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        repaint();
+
+        if (e.getSource() == Helpmenu){
+            JOptionPane.showMessageDialog(new JFrame(), "You goofed up");
+
+        }
+
 
 
         if (e.getSource() == Submit) {
@@ -281,7 +325,7 @@ public class InFrame extends JFrame implements ActionListener {
             try {
                 Charactercounter(sComment);
                 if (OVER.equals("true")) {
-                    JOptionPane.showMessageDialog(new JFrame(), "You goofed up");
+                    JOptionPane.showMessageDialog(new JFrame(), "You have entered too many characters //n for the resolution");
                     OVER = "";
                     Requiredaction.setBackground(Color.YELLOW);
                     Requiredaction.setText("");
