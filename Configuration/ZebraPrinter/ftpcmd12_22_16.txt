@@ -1,0 +1,4 @@
+open 10.15.48.219
+user myFTPuser myftppassword
+close
+quit
