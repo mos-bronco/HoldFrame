@@ -8,13 +8,14 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
+
 public class Tag extends JFrame {
 
+    static String Message = "You are running an outdated version of this app \nPlease contact IS support \n-Dan Duran";
 
     public static void main() {
-
         {
-            System.out.println("123123");
+            String filelocation = "Configuration\\ZebraPrinter\\";
             String[] Act = new String[2];
             int[] Print = new int[1];
             int pholder = InFrame.Pnumber;
@@ -25,7 +26,7 @@ public class Tag extends JFrame {
             mo = (mo + 1);
             String result = "" + (mo) + ("_") + (cal.get(Calendar.DATE)) + ("_") + (cal.get(Calendar.SECOND));
             try {
-                FileWriter writer = new FileWriter("c:\\ZebraPrint\\" + (result) + ".txt");
+                FileWriter writer = new FileWriter(filelocation + (result) + ".txt");
                 String host;
                 InetAddress addr;
                 addr = InetAddress.getLocalHost();
@@ -70,18 +71,19 @@ public class Tag extends JFrame {
                 writer.flush();
                 writer.close();
                 out.println("Filename:" + (result));
+                out.println(filelocation + (result));
             } catch (IOException e) {
                 out.println("An error occurred when creating the label file \nPlease contact local IS.");
                 e.printStackTrace();
             }
 //Creates bat file to open ftp connection
             try {
-                FileWriter writer = new FileWriter("c:\\ZebraPrint\\" + "testyftp" + (result) + ".bat");//, true);
+                FileWriter writer = new FileWriter(filelocation + "testyftp" + (result) + ".bat");//, true);
                 // Writes the content to the file
-                writer.write("cd C:\\ZebraPrint\\ \nftp -n -s:ftpcmd" + (result) + ".txt\npause");
+                writer.write("cd"+filelocation +"\nftp -n -s:ftpcmd" + (result) + ".txt\npause");
                 writer.flush();
                 writer.close();
-//                            System.out.println("Filename:" + (result));
+                           System.out.println("Filename:" + (result));
             } catch (IOException e) {
                 out.println("An error occurred when creating the .bat file \nPlease contact local IS.");
                 e.printStackTrace();
@@ -89,7 +91,7 @@ public class Tag extends JFrame {
 //Logs into printer and sends the number of files to print
             try {
 
-                FileWriter writer = new FileWriter("c:\\ZebraPrint\\" + "ftpcmd" + (result) + ".txt");
+                FileWriter writer = new FileWriter(filelocation + "ftpcmd" + (result) + ".txt");
                 // Writes the content to the file
                 writer.write("open 10.15.48.219\nuser myFTPuser myftppassword");
                 //open 10.15.48.219
@@ -109,7 +111,7 @@ public class Tag extends JFrame {
             {
 //creates the cmd proccess
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "testyftp" + (result) + ".bat");
-                File dir = new File("C:/ZebraPrint");
+                File dir = new File(filelocation);
                 pb.directory(dir);
 //Executes the .bat
                 try {
@@ -121,7 +123,6 @@ public class Tag extends JFrame {
 
             }
         }
-
 
     }
 }

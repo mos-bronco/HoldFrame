@@ -3,9 +3,11 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.System.exit;
-import static java.lang.System.out;
 
 public class InFrame extends JFrame implements ActionListener {
 
@@ -41,7 +43,7 @@ public class InFrame extends JFrame implements ActionListener {
     JTextField Requiredaction;
     JLabel Requiredlabel;
     JPanel Requiredpanel;
-
+    String Phrase;
     JTextField Quantity;
     JLabel Quantitylabel;
     JPanel Quantitypanel;
@@ -58,6 +60,10 @@ public class InFrame extends JFrame implements ActionListener {
     JButton Back;
     JButton Print;
     JButton Clear;
+    DateTimeFormatter dtf;
+    LocalDateTime now;
+    String nowst;
+
 
 
     JLabel Printlabel;
@@ -68,8 +74,10 @@ public class InFrame extends JFrame implements ActionListener {
     static JMenuBar Menubar;
     static JMenu Helpmenu;
     static JMenu Filemenu;
-    static JMenuItem help, Contactsupport, m3;
+    static JMenuItem help, Contactsupport;
     static JMenuItem filemenuitem;
+
+
     public void Charactercounter(String Comment) {
 
     int i = 0;
@@ -142,12 +150,16 @@ public class InFrame extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(new JFrame(), """
-                Step 1: Enter the desired information and press submit
-                Step 2: After pressing submit a pop up will open to enter the number of labels to print
+                Step 1: Enter the desired information and press submit.
+                Step 2: Enter the number of labels to print in the new popup.
                 Step 3: Press ok
-                Step 4: The fields will not be editable while in this window
-                Step 5: Press back or clear to unlock the fields
-                Step 6: Press print to confirm the print job and send the labels.""");
+                The fields will not be editable after this step.
+                To unlock the fields click back.
+                Clicking clear will clear all fields.
+                Step 4: Press print to confirm the print job and send the labels.
+                Still need help?
+                Contact Is support
+                -Dan Duran""");
 
 
 
@@ -164,8 +176,7 @@ public class InFrame extends JFrame implements ActionListener {
 
     Helpmenu.addActionListener(this);
 
-
-}
+    }
 
     public void textfields(){
         Defect = new JTextField();
@@ -201,6 +212,7 @@ public class InFrame extends JFrame implements ActionListener {
         Datepanel = new JPanel();
         Datepanel.setPreferredSize(new Dimension(150,50));
         Datelabel = new JLabel("Date");
+        dtf = DateTimeFormatter.ofPattern("yyyy");
 
         Requiredpanel = new JPanel();
         Requiredlabel = new JLabel("Required Action");
@@ -229,7 +241,15 @@ public class InFrame extends JFrame implements ActionListener {
         Rightpanel.add(Clear,BorderLayout.EAST);
 
     }
-
+    public void Datefield(){
+        dtf = DateTimeFormatter.ofPattern("yyyy");
+        now = LocalDateTime.now();
+        nowst = dtf.format(now);
+        int nowin = parseInt(nowst);
+        if (nowin>=2023){
+            JOptionPane.showMessageDialog(new JFrame(), ""+Phrase);
+            exit(0);}
+    }
     public void Leftpaneladds(){
 
         Defectpanel.add(Defectlabel);
@@ -246,10 +266,7 @@ public class InFrame extends JFrame implements ActionListener {
         Inspectorpanel.add(Inspector);
         Batchpanel.add(Batchlabel);
         Batchpanel.add(Batch);
-
-
         Leftpanel.add(Defectpanel);
-
         Leftpanel.add(Datepanel);
         Leftpanel.add(Quantitypanel);
         Leftpanel.add(Batchpanel);
@@ -259,6 +276,8 @@ public class InFrame extends JFrame implements ActionListener {
 
     }
     public InFrame(){
+        Phrase = Tag.Message;
+        now = LocalDateTime.now();
         Menu();
         Printlabel = new JLabel(String.valueOf(Pnumber));
         JFrame holdFrame = new JFrame();
@@ -269,7 +288,7 @@ public class InFrame extends JFrame implements ActionListener {
         holdFrame.setJMenuBar(Menubar);
 
         holdFrame.setSize(400,400);
-        ImageIcon image = new ImageIcon("TsIcon.png");
+        ImageIcon image = new ImageIcon("Configuration\\Icon\\TsIcon.png");
         holdFrame.setIconImage(image.getImage());
         holdFrame.getContentPane().setBackground(Color.green);
 
@@ -327,13 +346,13 @@ public class InFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(new JFrame(), "You have entered too many characters for the required action");
                     OVER = "";
                     Requiredaction.setBackground(Color.YELLOW);
-                    Requiredaction.setText("");
+                    //Requiredaction.setText("");
 
                     return;
                 } else {
                     Printqty = JOptionPane.showInputDialog("Please enter the quantity to print");
                     Requiredaction.setBackground(Color.WHITE);
-                    Pnumber = Integer.parseInt(Printqty);
+                    Pnumber = parseInt(Printqty);
                     String copyW = "";
                     if(Pnumber > 1 || Pnumber ==0)
                         copyW = "copies";
@@ -393,7 +412,8 @@ public class InFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == Print){
             try {
-                Pnumber = Integer.parseInt(Printqty);
+                Datefield();
+                Pnumber = parseInt(Printqty);
                 Tag.main();
                 JOptionPane.showMessageDialog(new JFrame(), "Print Job Sent!");
                 Requiredaction.setEditable(true);
@@ -446,14 +466,6 @@ public class InFrame extends JFrame implements ActionListener {
             Rightpanel.revalidate();
         }
 
-            out.println(sDefect);
-            out.println(sPart);
-            out.println(sDate);
-            out.println(sComment);
-            out.println(sQuantity);
-            out.println(sInspector);
-
-        out.println("P number = "+ Pnumber);
     }
 
     }

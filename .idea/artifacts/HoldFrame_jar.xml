@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="HoldFrame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HoldFrame_jar</output-path>
+    <root id="archive" name="HoldFrame.jar">
+      <element id="module-output" name="HoldFrame" />
+      <element id="module-source" name="HoldFrame" />
+    </root>
+  </artifact>
+</component>
