@@ -36,40 +36,40 @@ public class Tag extends JFrame {
                 host = addr.getHostName();
                 // Writes hold tag data & image to file
                 writer.write("^XA" +
-                        "^LRY^FO610,520 ^GB65,610,40^FS                               " +
-                        "^FO540,520^GB65,500,40^FS                                     " +
-                        "^A0R,^FO680,520 ^GB50,50,4^FS                                 " +
-                        "^A0R,^FO670,529,^A0,55^,^FDX^FS                               " +
-                        "^A0R,^FO670,640,^A0,55^,^FDIN-PLANT^FS                        " +
-                        "^A0R,^FO600,520,^A0,70^,^FDDO NOT USE UNLESS^FS               " +
-                        "^A0R,^FO530,520,^A0,70^,^FDRELEASED BY QC^FS                  " +
-                        "^LRN^A0R,^FO520,50^A0,175^,^FDHOLD^FS                         " +
-                        "^A0R,^FO22,1100^A0,35^,^FD261_1^FS                            " +
-                        "^A0R,^FO390,50^A0,85^,^FDDefect^FS                            " +
-                        "^FO395,310 ^GB5,890,7^FS                                      " +
-                        "^A0R,^FO390,300^A0,100^,^FD " + (InFrame.sDefect) + " ^FS          " +
-                        "^A0R,^FO310,10^A0,50^,^FDRequired Action^FS                   " +
-                        "^A0R,^FO324,350^A0,40^,^FD" + (InFrame.subFirst) + "    ^FS               " +
-                        "^FO318,350 ^GB5,852,7^FS                                      " +
-                        "^A0R,^FO258,350^A0,40^,^FD" + (InFrame.subSecond) + "    ^FS              " +
-                        "^FO255,350 ^GB5,852,7^FS                                      " +
-                        "^A0R,^FO175,100^,^A0,50^,^FDDate^FS                           " +
-                        "^A0R,^FO175,200^,^A0,50^,^FD" + (InFrame.sDate) + "    ^FS        " +
-                        "^FO175,200 ^GB5,275,7^FS                                      " +
-                        "^A0R,^FO175,620^,^A0,50^,^FDPart #^FS                         " +
-                        "^A0R,^FO175,750^,^A0,50^,^FD" + (InFrame.sPart) + "    ^FS        " +
-                        "^FO175,740 ^GB5,310,7^FS                                      " +
-                        "^A0R,^FO100,100^,^A0,50^,^FDQuantity^FS                       " +
-                        "^A0R,^FO100,280^,^A0,50^,^FD" + (InFrame.sQuantity) + "    ^FS    " +
-                        "^FO100,265 ^GB5,212,7^FS                                      " +
-                        "^A0R,^FO22,100^,^A0,50^,^FDBatch^FS                           " +
-                        "^A0R,^FO22,240^,^A0,50^,^FD" + (InFrame.sBatch) + " ^FS      " +
-                        "^FO22,220 ^GB5,260,7^FS                                       " +
-                        "^A0R,^FO100,620^,^A0,50^,^FDInspector^FS                      " +
-                        "^A0R,^FO100,840^,^A0,50^,^FD" + (InFrame.sInspector) + "    ^FS   " +
-                        "^FO100,810 ^GB5,240,7^FS                                      " +
-                        "^A0R,^FO10,10^,^A0,15^,^FD " + (host) + " ^FS                         " +
-                        "^XZ                                                           "
+                        "^LRY^FO610,520 ^GB65,610,40^FS" + "\n" +
+                        "^FO540,520^GB65,500,40^FS" + "\n" +
+                        "^A0R,^FO680,520 ^GB50,50,4^FS" + "\n" +
+                        "^A0R,^FO670,529,^A0,55^,^FDX^FS" + "\n" +
+                        "^A0R,^FO670,640,^A0,55^,^FDIN-PLANT^FS" + "\n" +
+                        "^A0R,^FO600,520,^A0,70^,^FDDO NOT USE UNLESS^FS" + "\n" +
+                        "^A0R,^FO530,520,^A0,70^,^FDRELEASED BY QC^FS" + "\n" +
+                        "^LRN^A0R,^FO520,50^A0,175^,^FDHOLD^FS" + "\n" +
+                        "^A0R,^FO22,1100^A0,35^,^FD261_1^FS" + "\n" +
+                        "^A0R,^FO390,50^A0,85^,^FDDefect^FS" + "\n" +
+                        "^FO395,310 ^GB5,890,7^FS" + "\n" +
+                        "^A0R,^FO390,300^A0,100^,^FD " + (InFrame.sDefect) +" ^FS"+ "\n" +
+                        "^A0R,^FO310,10^A0,50^,^FDRequired Action^FS" +
+                        "^A0R,^FO324,350^A0,40^,^FD" + (InFrame.subFirst) + "^FS"+ "\n" +
+                        "^FO318,350 ^GB5,852,7^FS" + "\n" +
+                        "^A0R,^FO258,350^A0,40^,^FD" + (InFrame.subSecond) + "^FS" + "\n" +
+                        "^FO255,350 ^GB5,852,7^FS" + "\n" +
+                        "^A0R,^FO175,100^,^A0,50^,^FDDate^FS" + "\n" +
+                        "^A0R,^FO175,200^,^A0,50^,^FD" + (InFrame.sDate) + "^FS" + "\n" +
+                        "^FO175,200 ^GB5,275,7^FS" + "\n" +
+                        "^A0R,^FO175,620^,^A0,50^,^FDPart #^FS" + "\n" +
+                        "^A0R,^FO175,750^,^A0,50^,^FD" + (InFrame.sPart) + "^FS" + "\n" +
+                        "^FO175,740 ^GB5,310,7^FS" + "\n" +
+                        "^A0R,^FO100,100^,^A0,50^,^FDQuantity^FS" + "\n" +
+                        "^A0R,^FO100,280^,^A0,50^,^FD" + (InFrame.sQuantity) + "^FS" + "\n" +
+                        "^FO100,265 ^GB5,212,7^FS" + "\n" +
+                        "^A0R,^FO22,100^,^A0,50^,^FDBatch^FS" + "\n" +
+                        "^A0R,^FO22,240^,^A0,50^,^FD" + (InFrame.sBatch) + "^FS" + "\n" +
+                        "^FO22,220 ^GB5,260,7^FS" + "\n" +
+                        "^A0R,^FO100,620^,^A0,50^,^FDInspector^FS" + "\n" +
+                        "^A0R,^FO100,840^,^A0,50^,^FD" + (InFrame.sInspector) + "^FS" + "\n" +
+                        "^FO100,810 ^GB5,240,7^FS" + "\n" +
+                        "^A0R,^FO10,10^,^A0,15^,^FD " + (host) + "^FS" + "\n" +
+                        "^XZ"
                 );
                 writer.flush();
                 writer.close();
@@ -96,7 +96,7 @@ public class Tag extends JFrame {
 
                 FileWriter writer = new FileWriter(filelocation + "ftpcmd" + (result) + ".txt");
                 // Writes the content to the file
-                writer.write("open "+ QCPrinterIp+" \nuser myFTPuser myftppassword");
+                writer.write("open "+ IsPrinterIp+" \nuser myFTPuser myftppassword");
                 //open 10.15.48.219
                 while (pholder > 0) {
 //                                System.out.print(Print);
