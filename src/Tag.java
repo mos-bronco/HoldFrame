@@ -96,7 +96,7 @@ public class Tag extends JFrame {
 
                 FileWriter writer = new FileWriter(filelocation + "ftpcmd" + (result) + ".txt");
                 // Writes the content to the file
-                writer.write("open "+ QCPrinterIp+"\nuser myFTPuser myftppassword");
+                writer.write("open "+ QCPrinterIp+" \nuser myFTPuser myftppassword");
                 //open 10.15.48.219
                 while (pholder > 0) {
 //                                System.out.print(Print);
